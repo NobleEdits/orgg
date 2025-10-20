@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF‑8">
+  <title>NOBLE_DC EDITOR — Professional Video & Photo Editing</title>
+  <meta name="viewport" content="width=device‑width, initial‑scale=1">
+  <style>
+    body {
+      margin:0;
+      font‑family:"Segoe UI", Roboto, "Helvetica Neue", Arial, sans‑serif;
+      color:#222;
+      background:#f9f9f9;
+      line‑height:1.6;
+    }
+    a {
+      color:#0056b3;
+      text‑decoration:none;
+    }
+    a:hover {
+      text‑decoration:underline;
+    }
+    header {
+      position:fixed;
+      width:100%;
+      top:0;
+      left:0;
+      background:#fff;
+      border‑bottom:1px solid #eaeaea;
+      z‑index:1000;
+    }
+    header .nav-container {
+      max‑width:1200px;
+      margin:0 auto;
+      padding:12px 20px;
+      display:flex;
+      justify‑space-between: space-between;
+      align‑items:center;
+    }
+    header .nav-container .logo {
+      font‑size:1.4rem;
+      font‑weight:bold;
+    }
+    header nav a {
+      margin:0 15px;
+      font‑weight:500;
+      font‑size:0.95rem;
+      color:#333;
+    }
+    .hero {
+      margin‑top:60px; /* space for header */
+      position:relative;
+      width:100%;
+      height:80vh;
+      overflow:hidden;
+      display:flex;
+      align‑items:center;
+      justify‑content:center;
+      text‑align:center;
+      color:#fff;
+    }
+    .hero img {
+      position:absolute;
+      top:0; left:0;
+      width:100%;
+      height:100%;
+      object‑fit:cover;
+      opacity:0;
+      transition: opacity 1s ease‑in‑out;
+    }
+    .hero img.active {
+      opacity:1;
+    }
+    .hero::before {
+      content:"";
+      position:absolute;
+      top:0; left:0;
+      width:100%; height:100%;
+      background:rgba(0,0,0,0.45);
+      z‑index:1;
+    }
+    .hero .overlay {
+      position:relative;
+      z‑index:2;
+      padding:0 20px;
+      max‑width:800px;
+    }
+    .hero h1 {
+      margin:0;
+      font-size:3rem;
+      letter‑spacing:1px;
+    }
+    .hero p.subtitle {
+      font-size:1.25rem;
+      margin:10px 0 0;
+    }
+    .container {
+      max‑width:1100px;
+      margin:50px auto;
+      padding:0 20px;
+      background:#fff;
+      border‑radius:8px;
+      box‑shadow:0 4px 12px rgba(0,0,0,0.05);
+    }
+    section {
+      padding:60px 0;
+    }
+    h2 {
+      font-size:2rem;
+      margin‑bottom:20px;
+      border‑bottom:2px solid #eee;
+      padding‑bottom:10px;
+    }
+    .services‐list {
+      display:grid;
+      grid‐template‐columns:repeat(auto‑fit, minmax(260px,1fr));
+      gap:30px;
+    }
+    .service {
+      background:#fafafa;
+      padding:24px;
+      border:1px solid #eaeaea;
+      border‐radius:6px;
+      transition: transform .3s ease, box‐shadow .3s ease;
+    }
+    .service:hover {
+      transform: translateY(-5px);
+      box‐shadow:0 8px 20px rgba(0,0,0,0.08);
+    }
+    .portfolio‐grid {
+      display:grid;
+      grid‐template‐columns:repeat(auto‑fit, minmax(280px,1fr));
+      gap:20px;
+    }
+    .portfolio‐grid .project {
+      position:relative;
+      overflow:hidden;
+      border‐radius:6px;
+      box‐shadow:0 2px 8px rgba(0,0,0,0.1);
+    }
+    .portfolio‐grid .project img {
+      width:100%;
+      display:block;
+      transition: transform .4s ease;
+    }
+    .portfolio‐grid .project:hover img {
+      transform: scale(1.05);
+    }
+    .portfolio‐grid .project .caption {
+      position:absolute;
+      bottom:0;
+      left:0;
+      width:100%;
+      background:rgba(0,0,0,0.6);
+      color:#fff;
+      padding:12px 15px;
+      box‐sizing:border‐box;
+      opacity:0;
+      transition: opacity .3s ease;
+      font‐size:0.95rem;
+    }
+    .portfolio‐grid .project:hover .caption {
+      opacity:1;
+    }
+    form label {
+      display:block;
+      margin:15px 0 5px;
+      font‐weight:500;
+    }
+    form input, form textarea {
+      width:100%;
+      padding:14px;
+      font‐size:1rem;
+      border:1px solid #ccc;
+      border‐radius:4px;
+      box‑sizing:border‐box;
+    }
+    form button {
+      margin‑top:20px;
+      padding:16px;
+      font‑size:1rem;
+      border:none;
+      background:#0056b3;
+      color:#fff;
+      border‑radius:4px;
+      cursor:pointer;
+      transition: background .3s ease;
+    }
+    form button:hover {
+      background:#003f80;
+    }
+    footer {
+      text‑align:center;
+      padding:40px 20px;
+      background:#fff;
+      border‑top:1px solid #eaeaea;
+      color:#777;
+      font‑size:0.9rem;
+    }
+    @media (max‑width:600px) {
+      .hero h1 { font‐size:2.4rem; }
+      .hero { height:60vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <div class="logo">NOBLE_DC EDITOR</div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <!-- Rotating images (every 10s) -->
+    <img src="https://i.postimg.cc/0203pScD/Source-isabelle-dk-on-Instagram.jpg" class="active" alt="Portfolio hero 1">
+    <img src="https://i.postimg.cc/BQbDg9Cc/c50c0dea-14a8-46c6-b5e4-371752e18899.jpg" alt="Portfolio hero 2">
+    <img src="https://i.postimg.cc/BnDjYqPY/388fa3fa-6804-4b20-8025-697a76125cfd.jpg" alt="Portfolio hero 3">
+    <img src="https://i.postimg.cc/6qtsXfMW/My-Photo-Editing-Process.jpg" alt="Portfolio hero 4">
+    <div class="overlay">
+      <h1>NOBLE_DC EDITOR</h1>
+      <p class="subtitle">Professional Video & Photo Editing • Motion Graphics • Colour Grading • High‑End Visuals</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <!-- About Section -->
+    <section id="about">
+      <h2>About Me</h2>
+      <p>Welcome to NOBLE_DC EDITOR — where your footage and images become polished visuals that tell a story. With years of experience in both video editing and photo post‑production, I specialize in elevating raw content into engaging, professional presentations that resonate.</p>
+      <p>I work across a variety of formats: social media content, brand films, wedding highlights, YouTube series, and more. My tools of choice include industry‑standard software and workflows, ensuring the final output meets both aesthetic and technical standards.</p>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+      <h2>Services</h2>
+      <div class="services‐list">
+        <div class="service">
+          <h3>Video Editing</h3>
+          <p>From rough cut to final deliverable: sequence assembly, transitions, audio clean‑up, colour correction, motion graphics integration, and full export for platforms of your choice.</p>
+        </div>
+        <div class="service">
+          <h3>Photo & Image Editing</h3>
+          <p>Professional retouching, compositing, colour grading, image optimisation for print or digital, and visual consistency across your imagery.</p>
+        </div>
+        <div class="service">
+          <h3>Motion Graphics & Titles</h3>
+          <p>Create sleek intros, animated text overlays, custom lower thirds, transitions and branding elements that enhance your visual narrative.</p>
+        </div>
+        <div class="service">
+          <h3>Colour Grading & Finishing</h3>
+          <p>Give your project a cinematic tone, matched across scenes, with accurate colour workflows, look development and final output delivery.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio">
+      <h2>Portfolio Highlights</h2>
+      <p>Here are some recent projects that showcase my work. Hover or click for more details.</p>
+      <div class="portfolio‐grid">
+        <div class="project">
+          <img src="https://i.postimg.cc/0203pScD/Source-isabelle-dk-on-Instagram.jpg" alt="Project 1">
+          <div class="caption">Project 1 – Creative Edit & Colour Grade</div>
+        </div>
+        <div class="project">
+          <img src="https://i.postimg.cc/BQbDg9Cc/c50c0dea-14a8-46c6-b5e4-371752e18899.jpg" alt="Project 2">
+          <div class="caption">Project 2 – Social Media Visuals</div>
+        </div>
+        <div class="project">
+          <img src="https://i.postimg.cc/BnDjYqPY/388fa3fa-6804-4b20-8025-697a76125cfd.jpg" alt="Project 3">
+          <div.class="caption">Project 3 – Photo Editing Process</div>
+        </div>
+        <div class="project">
+          <img src="https://i.postimg.cc/6qtsXfMW/My-Photo-Editing-Process.jpg" alt="Project 4">
+          <div class="caption">Project 4 – Process & Output</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <p>Have a project you’d like edited or visual content you want refined? Send the details—footage length, images, style references, deadline—and I’ll respond with a custom quote.</p>
+      <form action="https://formspree.io/f/mwprzgwv" method="POST">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Project Details & Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+
+  </div>
+
+  <footer>
+    &copy; 2025 NOBLE_DC EDITOR. All rights reserved.
+  </footer>
+
+  <script>
+    const imgs = document.querySelectorAll('.hero img');
+    let idx = 0;
+    setInterval(() => {
+      imgs[idx].classList.remove('active');
+      idx = (idx + 1) % imgs.length;
+      imgs[idx].classList.add('active');
+    }, 10000);
+  </script>
+
+</body>
+</html>
